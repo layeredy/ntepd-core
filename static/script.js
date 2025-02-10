@@ -1,7 +1,7 @@
 let currentNote = null;
 let autoSaveTimer = null;
 let noteToDelete = null;
-console.log('ntepd.com | github.com/ntepd | v-1.0.0');
+console.log('ntepd.com | github.com/ntepd | v-1.0.2');
 document.addEventListener('DOMContentLoaded', () => {
     loadNotes();
     setupEventListeners();
@@ -179,22 +179,17 @@ function showToastMessage(message) {
     const content = toast.querySelector('.toast-content');
     const progress = toast.querySelector('.toast-progress');
     
-    // Set message
     content.textContent = message;
     
-    // Reset progress bar
     progress.style.width = '100%';
     progress.classList.remove('animate');
     
-    // Show toast
     toast.classList.add('show');
     
-    // Start progress bar animation
     setTimeout(() => {
         progress.classList.add('animate');
     }, 10);
     
-    // Hide toast after 3 seconds
     setTimeout(() => {
         toast.classList.remove('show');
     }, 3000);
@@ -289,7 +284,6 @@ async function saveNote() {
         currentNote = savedNote;
         await loadNotes();
         
-        // Show save message
         showToastMessage(isNewNote ? 'Created a new note!' : 'Saved!');
         
     } catch (error) {

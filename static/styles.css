@@ -99,12 +99,10 @@ body {
     color: var(--mauve);
 }
 
-.theme-switcher {
-    margin-top: 1rem;
-}
 
 .theme-toggle-btn {
-    width: 100%;
+    width: 40px;
+    height: 40px;
     padding: 0.5rem;
     background: var(--surface0);
     border: none;
@@ -112,7 +110,9 @@ body {
     cursor: pointer;
     color: var(--text);
     transition: background-color 0.2s ease;
-    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .theme-toggle-btn:hover {
