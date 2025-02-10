@@ -10,6 +10,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     </head>
+    <div id="toast" class="toast">
+        <div class="toast-content"></div>
+        <div class="toast-progress"></div>
+    </div>
     <body>
         <button class="mobile-menu-trigger">
             <i class="fas fa-bars"></i>
@@ -43,9 +47,12 @@
                         <div id="editor" class="markdown-editor" contenteditable="true" spellcheck="false"></div>
                     </div>
                     <div class="editor-footer">
-                        <button id="saveNoteBtn" class="save-btn">
-                            <span>Save Note</span>
-                        </button>
+                        <div class="save-container">
+                            <button id="saveNoteBtn" class="save-btn">
+                                <span>Save Note</span>
+                            </button>
+                        </div>
+                        <div id="saveMessage" class="save-message"></div>
                     </div>
                 </div>
             </div>

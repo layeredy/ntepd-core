@@ -1,4 +1,3 @@
-// This code was cleaned up and made easier to read by an AI. 
 let currentNote = null;
 let autoSaveTimer = null;
 let noteToDelete = null;
@@ -69,6 +68,7 @@ function setupEventListeners() {
             document.execCommand('insertLineBreak');
         }
     });
+    
     document.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
             const sidebar = document.querySelector('.sidebar');
@@ -167,9 +167,37 @@ function hideDeleteModal() {
 
 async function confirmDelete() {
     if (noteToDelete) {
+        const noteName = noteToDelete.title || 'Untitled Note';
         await deleteNote(noteToDelete.id);
+        showToastMessage(`Deleted note "${noteName}"`);
         hideDeleteModal();
     }
+}
+
+function showToastMessage(message) {
+    const toast = document.getElementById('toast');
+    const content = toast.querySelector('.toast-content');
+    const progress = toast.querySelector('.toast-progress');
+    
+    // Set message
+    content.textContent = message;
+    
+    // Reset progress bar
+    progress.style.width = '100%';
+    progress.classList.remove('animate');
+    
+    // Show toast
+    toast.classList.add('show');
+    
+    // Start progress bar animation
+    setTimeout(() => {
+        progress.classList.add('animate');
+    }, 10);
+    
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
 }
 
 async function loadNotes() {
@@ -235,13 +263,13 @@ async function saveNote() {
     }
 
     const title = titleInput || "Untitled Note";
-
     const noteData = {
         title: title,
         content: content
     };
 
     try {
+        const isNewNote = !currentNote;
         const url = currentNote ? `/api/notes/${currentNote.id}` : '/api/notes';
         const method = currentNote ? 'PUT' : 'POST';
 
@@ -260,6 +288,10 @@ async function saveNote() {
         const savedNote = await response.json();
         currentNote = savedNote;
         await loadNotes();
+        
+        // Show save message
+        showToastMessage(isNewNote ? 'Created a new note!' : 'Saved!');
+        
     } catch (error) {
         console.error('Error saving note:', error);
     }
@@ -283,3 +315,4 @@ async function deleteNote(id) {
         console.error('Error deleting note:', error);
     }
 }
+
